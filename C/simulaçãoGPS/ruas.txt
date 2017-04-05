@@ -1,0 +1,9 @@
+5
+0;1;Marlon_Leoner;50;2;40
+0;3;Marlon_Leoner;50;2;40
+0;4;Marlon_Leoner;50;2;40
+1;0;Tiago_Pinheiro;1002;1;50
+1;2;Tiago_Pinheiro;100;1;50
+2;4;Marcelo_Milleto;90;5;20
+3;2;Leonardo_Brondoni;80;3;20
+3;4;Leonardo_Brondoni;50;3;20

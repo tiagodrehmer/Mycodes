@@ -1,0 +1,10 @@
+{
+    "autoload":{
+        "classmap":[
+            "DAO",
+            "model",
+            "controller", 
+            "view"
+        ]
+    }
+}

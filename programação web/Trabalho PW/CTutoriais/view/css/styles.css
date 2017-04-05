@@ -1,0 +1,547 @@
+html, body{
+    margin: 0;
+    padding: 0;
+}
+
+a{
+    text-decoration: none;
+}
+
+/*logomarca na barra superior */
+#logo{
+    position: relative;
+    height: 150px;
+    width: 400px;
+    display:block;
+    margin:auto;
+}
+#logo_pe{
+    position: relative;
+    height: 150px;
+    width: 300px;
+    padding-bottom: 30px;
+    display:block;
+    margin:auto;
+}
+
+/*Menu lateral com os tutoriais divididos em níveis*/
+.sidenav {
+    position: fixed;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    z-index: 1;
+    width: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #CACACA;
+    text-decoration:none;
+    transition: 0.5s;
+}
+
+.sideNav:hover{
+    overflow-y: scroll;
+}
+
+/*Titulo da sideNav*/
+.sideNavTitulo{
+    margin-top: 50px;
+
+    padding-left: 5px;
+    background-color: #337AB7;
+    color: white;
+    font-size: 30px;
+    color: white;
+    display: block;
+    height: 45px;
+    text-decoration: none;
+}
+
+/*Botão fechar do lado do título da sideNav*/
+.closebtn {
+    margin-top: 45px;
+    position: absolute;
+
+
+    background-color: #337AB7;
+    height: 50px;
+    color: white;
+
+    top: 0;
+    right: 0;
+    padding-bottom: 0;
+    padding-top: 0;
+
+    vertical-align: top;
+    text-align: left;
+
+    font-size: 40px; 
+    text-decoration:none;
+}
+
+.closebtn:hover{
+    background: #2D5E88;
+    color: white;
+    text-decoration:none;
+}
+
+/*Tutoriais Principais na sideNav*/
+.tutorialPrincipal {
+    outline: none;
+    background: #337AB7;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px; 
+
+    font-size: 15px;
+    color: white;
+
+    display: block;
+    transition: 0.3s;
+}
+
+.tutorialPrincipalAtivo {
+    background: #337AB7;
+    padding-left: 10px;
+    padding-top: 10px; 
+
+
+    font-size: 18px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+.tutorialPrincipal:hover , .sideNavTitulo:hover{
+    background: #2D5E88;
+    color: white;
+    text-decoration: none;
+}
+
+/*tutorial secundário*/
+.tutorialSecundario{
+    width: 194px;
+    display: block;
+    padding-bottom: 7px;
+    padding-left: 5px;
+    padding-right: 15px;
+    margin-left: -15px;
+
+
+    color: black;
+    font-size: 15px;
+
+    border-top: solid;
+    border-color: white;
+    border-top-width: 2px;
+}
+#tutorialSecundarioultimo{
+    border-bottom: solid;
+    border-color: white;
+    border-bottom-width: 2px;
+}
+#tutorialSecundarioUnico{
+    border-bottom: solid;
+    border-top: solid;
+    border-color: white;
+    border-bottom-width: 2px;
+    border-top-width: 2px;
+}
+
+.tutorialSecundario:hover{
+    background: gray;
+    color: white;
+    text-decoration:none;
+}
+
+#tutorial{
+    color: white;
+    text-decoration:none;
+}
+
+
+/*navBar no topo da página*/
+.navbar , .navbar-default , .navbar-fixed-top{
+    height: 10px;
+}
+
+pre {
+    display: block;
+    font-family: monospace;
+    white-space: pre;
+    margin: 1em 0;
+}
+
+
+
+/* Texto contido nos diferentes tutoriais*/
+.texto{
+    text-align: justify;
+    text-indent: 40px;
+}
+
+#main {
+    margin-top: 70px;
+    margin-left: 50px;
+    margin-right: 50px;
+    transition: margin-left .5s;
+}
+
+@media only screen and (max-width: 680px) {
+    #main{
+        margin-left: 0dp;
+        margin-right: 0dp;
+    }
+    #logo{
+        height: 90%;
+        width: 90%;
+    }
+    #logo_pe{
+        height: 90%;
+        width: 90%;    
+    }
+
+    .texto{
+        font-size: 90%;
+    }
+}
+
+
+/*Botão fixado Menu que abre e fecha o menu lateral*/
+#botaoMenu{
+    margin-right: 20px;
+    font-size: 20px;
+}
+/* Menu superior*/
+.fixed-nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    background-color: #e6e6e6;
+}
+
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #e6e6e6; 
+}
+
+ul.topnav li { 
+    float: left;
+}
+
+ul.topnav li button {
+    margin-left: 15px; 
+    margin-right: 15px; 
+}
+
+ul.topnav li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 11px 16px;
+    padding-left: 10px;	
+    text-decoration: none;
+    font-size: 20px;
+    transition: 0.3s;
+
+}
+
+#menuativo{
+    background-color: #337AB7;
+    color: white;
+}
+
+ul.topnav li a:hover {
+    background-color: #2D5E88;
+    color: white;
+}
+
+ul.topnav li.icon {
+    display: none;
+}
+/*remover o display dos itens da topnav*/
+@media screen and (max-width:850px) {
+    ul.topnav li:not(:first-child) {
+        display: none;
+    }
+    #right-topnav{
+        display: none;
+    }
+    ul.topnav li.icon {
+        float: right;
+        display: inline-block;
+    }
+}
+
+@media screen and (max-width:850px) {
+    ul.topnav.responsive {
+
+    }
+    #right-topnav-responsive{
+        
+    }
+    ul.topnav.responsive li.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    ul.topnav.responsive li {
+        margin: 0;
+        float: none;
+        display: inline;
+    }
+    
+    ul.topnav.responsive li a {
+        display: block;
+        text-align: left;
+        color: black;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+    
+    #right-topnav-responsive li{
+        margin: 0;
+        float: none;
+        display: inline;
+    }
+    
+     #right-topnav-responsive{
+        display: block;
+        text-align: left;
+        padding-left: 5px;
+        color: black;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+    
+
+}
+
+
+/* botoes avançar e voltar fim dos tutoriais*/
+#botaoNext{
+    margin-top: 5px;
+    margin-bottom: 20px;
+    padding:  5px;
+    font-size: 20px;
+    float: right;
+}
+
+#botaoPrevious{
+    margin-top: 5px;
+    margin-bottom: 20px;
+    padding: 5px;
+    font-size: 20px;
+    float: left;
+}
+
+
+#sub {
+    background-color: #337AB7;
+    color: white;   
+}
+
+#operadores{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#operadores td th{
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+
+#operadores tr:nth-child(even){
+    background-color: #dddddd;
+}
+
+#correta1:hover,#correta2:hover,#correta3:hover,#incorreta:hover{
+    background: #2D5E88;
+    color: #FFFFDF;
+}
+
+
+#correta1{
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: left;
+}
+
+#correta2{
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: left;
+}
+
+#correta3{
+    width: 100%;
+    border: none;
+    height: 30px;
+    text-align: left;
+}
+
+#incorreta{
+    width: 100%;
+    border: none;
+    height: 30px; 
+    text-align: left;
+}
+
+#questao{
+    margin-left: 10%;
+    margin-right: 30%;
+    width: 60%;
+}
+
+footer{
+    position: bottom;
+}
+
+#contato_pe{
+    position: relative;
+    text-align: center;
+    right: 50px;
+    color: #337AB7;
+}
+
+
+#login{
+    margin-top: 5%;
+}
+
+
+#divprincipal{
+    border-radius: 20px;
+    border: solid;
+    border-color: #337AB7;
+    background: #ffffff;   
+    padding: 20px;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+#divtitle{
+    text-align: center;
+    color: #337AB7;
+    font-size: 25px;
+}
+
+#formcontent{
+    position: relative;
+    align-content: center;
+}
+
+input[type=text], input[type=password], input[type=email], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #337AB7;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+#err{
+    border-radius: 15px;
+    border: solid;
+    border-color: #f00;
+    padding: 5px;
+    background: #f2dede;
+}
+
+#errmessage{
+    padding-top: 5px;
+    text-align: center;
+    color: #f00;
+}
+
+#success{
+    border-radius: 15px;
+    border: solid;
+    border-color: #008000;
+    padding: 5px;
+    background: #baeeba;
+}
+
+#successmessage{
+    padding-top: 5px;
+    text-align: center;
+    color: #008000;
+}
+
+@media screen and (max-width:800px) {
+    #divprincipal{
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
+.direita{
+    float: right;
+}
+
+.username{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}
+
+.modal-body .form-horizontal .col-sm-2,
+.modal-body .form-horizontal .col-sm-10 {
+    width: 100%
+}
+
+.modal-body .form-horizontal .control-label {
+    text-align: left;
+}
+.modal-body .form-horizontal .col-sm-offset-2 {
+    margin-left: 15px;
+}
+textarea {
+    resize:vertical;
+} 
+
+.questao{
+    display: inline-block;    
+}
+
+.direita{
+    position: relative;
+    float: right;
+    float: top;
+}
+
+.esquerda{
+    width: 100%;
+    position: relative;
+    float: left;
+}
+
+ .panel-body, .panel-heading, panel-footer{
+    word-break:break-all
+}

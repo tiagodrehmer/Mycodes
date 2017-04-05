@@ -1,0 +1,279 @@
+#!/bin/bash
+# >> redireciona a saida para um arquivo
+
+ARVORE=( "BST" "AVL" "SPLAY")
+TYPE_TREE=3
+REPETICOES=2
+TEMPO_1=0
+TEMPO_2=0
+TEMPO_3=0
+TEMPO_4=0
+SOMADOR_1=0
+SOMADOR_2=0
+SOMADOR_3=0
+SOMADOR_4=0
+
+mkdir testes #cria pasta onde vai colocar os files com os dados
+
+######################################################################
+#PUT
+for ((b=0; b < TYPE_TREE; b++))
+do
+  cd ${ARVORE[$b]}_Shopping
+  make
+  for ((a=1; a <= $REPETICOES ; a++))
+  do
+    TEMPO_1=`./main -p ../files/put_200_1000.csv -S ../files/Sp.txt`
+    TEMPO_2=`./main -p ../files/put_200_2500.csv -S ../files/Sp.txt`
+    TEMPO_3=`./main -p ../files/put_200_5000.csv -S ../files/Sp.txt`
+
+    SOMADOR_1=`echo "scale=5;$SOMADOR_1+$TEMPO_1" | bc`
+    SOMADOR_2=`echo "scale=5;$SOMADOR_2+$TEMPO_2" | bc`
+    SOMADOR_3=`echo "scale=5;$SOMADOR_3+$TEMPO_3" | bc`
+
+  done
+  SOMADOR_1=`echo "scale=5;$SOMADOR_1/$REPETICOES" | bc` #fazendo a media
+  SOMADOR_2=`echo "scale=5;$SOMADOR_2/$REPETICOES" | bc` #fazendo a media
+  SOMADOR_3=`echo "scale=5;$SOMADOR_3/$REPETICOES" | bc` #fazendo a media
+
+  cd ../testes
+  echo $SOMADOR_1
+  printf "200x1000 - $SOMADOR_1 ms \n" > ${ARVORE[$b]}_PUT.dat
+  printf "200x2500 - $SOMADOR_2 ms \n" >> ${ARVORE[$b]}_PUT.dat
+  printf "200x5000 - $SOMADOR_3 ms \n" >> ${ARVORE[$b]}_PUT.dat
+  #reset das variaveis
+  SOMADOR_1=0
+  SOMADOR_2=0
+  SOMADOR_3=0
+  SOMADOR_4=0
+  cd ..
+done
+
+######################################################################
+#GET
+
+for ((b=0; b < TYPE_TREE; b++))
+do
+  cd ${ARVORE[$b]}_Shopping
+  for ((a=1; a <= $REPETICOES ; a++))
+  do
+    TEMPO_1=`./main -p ../files/put_200_5000.csv -g ../files/teste_50_15000.csv -S ../files/Spg.txt`
+    TEMPO_2=`./main -p ../files/put_200_5000.csv -g ../files/teste_50_25000.csv -S ../files/Spg.txt`
+    TEMPO_3=`./main -p ../files/put_200_5000.csv -g ../files/teste_50_50000.csv -S ../files/Spg.txt`
+    TEMPO_4='./main -p ../files/put_200_5000.csv -g ../files/teste_50_100000.csv -S ../files/Spg.txt'
+
+    SOMADOR_1=`echo "scale=5;$SOMADOR_1+$TEMPO_1" | bc`
+    SOMADOR_2=`echo "scale=5;$SOMADOR_2+$TEMPO_2" | bc`
+    SOMADOR_3=`echo "scale=5;$SOMADOR_3+$TEMPO_3" | bc`
+    SOMADOR_4=`echo "scale=5;$SOMADOR_4+$TEMPO_4" | bc`
+
+  done
+  SOMADOR_1=`echo "scale=5;$SOMADOR_1/$REPETICOES" | bc` #fazendo a media
+  SOMADOR_2=`echo "scale=5;$SOMADOR_2/$REPETICOES" | bc` #fazendo a media
+  SOMADOR_3=`echo "scale=5;$SOMADOR_3/$REPETICOES" | bc` #fazendo a media
+  SOMADOR_4=`echo "scale=5;$SOMADOR_4/$REPETICOES" | bc` #fazendo a media
+  cd ../testes
+  echo $SOMADOR_1
+  printf "50x15000 - $SOMADOR_1 ms \n" > ${ARVORE[$b]}_GET.dat
+  printf "50x25000 - $SOMADOR_2 ms \n" >> ${ARVORE[$b]}_GET.dat
+  printf "50x50000 - $SOMADOR_3 ms \n" >> ${ARVORE[$b]}_GET.dat
+  printf "50x100000 - $SOMADOR_4 ms \n" >> ${ARVORE[$b]}_GET.dat
+  #reset das variaveis
+  SOMADOR_1=0
+  SOMADOR_2=0
+  SOMADOR_3=0
+  SOMADOR_4=0
+  cd ..
+done
+
+######################################################################
+#CONTAINS
+cd testes
+printf "$a - 50x15000  " > BST_CONTAINS.dat
+cd ../BST_Shopping
+./main -p ../files/put_200_5000.csv -c ../files/teste_50_15000.csv -S ../files/Spc.txt >> ../testes/BST_CONTAINS.dat
+printf "$a - 50x25000  " >> ../testes/BST_CONTAINS.dat
+./main -p ../files/put_200_5000.csv -c ../files/teste_50_25000.csv -S ../files/Spc.txt >> ../testes/BST_CONTAINS.dat
+printf "$a - 50x50000  " >> ../testes/BST_CONTAINS.dat
+./main -p ../files/put_200_5000.csv -c ../files/teste_50_50000.csv -S ../files/Spc.txt >> ../testes/BST_CONTAINS.dat
+printf "$a - 50x100000  " >> ../testes/BST_CONTAINS.dat
+./main -p ../files/put_200_5000.csv -c ../files/teste_50_100000.csv -S ../files/Spc.txt >> ../testes/BST_CONTAINS.dat
+cd ..
+
+cd testes
+printf "$a - 50x15000  " > AVL_CONTAINS.dat
+cd ../AVL_Shopping
+./main -p ../files/put_200_5000.csv -c ../files/teste_50_15000.csv -S ../files/Spc.txt >> ../testes/AVL_CONTAINS.dat
+printf "$a - 50x25000  " >> ../testes/AVL_CONTAINS.dat
+./main -p ../files/put_200_5000.csv -c ../files/teste_50_25000.csv -S ../files/Spc.txt >> ../testes/AVL_CONTAINS.dat
+printf "$a - 50x50000  " >> ../testes/AVL_CONTAINS.dat
+./main -p ../files/put_200_5000.csv -c ../files/teste_50_50000.csv -S ../files/Spc.txt >> ../testes/AVL_CONTAINS.dat
+printf "$a - 50x100000  " >> ../testes/AVL_CONTAINS.dat
+./main -p ../files/put_200_5000.csv -c ../files/teste_50_100000.csv -S ../files/Spc.txt >> ../testes/AVL_CONTAINS.dat
+cd ..
+
+cd testes
+printf "$a - 50x15000  " > SPLAY_CONTAINS.dat
+cd ../SPLAY_Shopping
+./main -p ../files/put_200_5000.csv -c ../files/teste_50_15000.csv -S ../files/Spc.txt >> ../testes/SPLAY_CONTAINS.dat
+printf "$a - 50x25000  " >> ../testes/SPLAY_CONTAINS.dat
+./main -p ../files/put_200_5000.csv -c ../files/teste_50_25000.csv -S ../files/Spc.txt >> ../testes/SPLAY_CONTAINS.dat
+printf "$a - 50x50000  " >> ../testes/SPLAY_CONTAINS.dat
+./main -p ../files/put_200_5000.csv -c ../files/teste_50_50000.csv -S ../files/Spc.txt >> ../testes/SPLAY_CONTAINS.dat
+printf "$a - 50x100000  " >> ../testes/SPLAY_CONTAINS.dat
+./main -p ../files/put_200_5000.csv -c ../files/teste_50_100000.csv -S ../files/Spc.txt >> ../testes/SPLAY_CONTAINS.dat
+cd ..
+
+#*******************************************************************
+#RANK
+cd testes
+printf "$a - 50x15000  " > BST_RANK.dat
+cd ../BST_Shopping
+./main -p ../files/put_200_5000.csv -R ../files/teste_50_15000.csv -S ../files/SpR.txt >> ../testes/BST_RANK.dat
+printf "$a - 50x25000  " >> ../testes/BST_RANK.dat
+./main -p ../files/put_200_5000.csv -R ../files/teste_50_25000.csv -S ../files/SpR.txt >> ../testes/BST_RANK.dat
+printf "$a - 50x50000  " >> ../testes/BST_RANK.dat
+./main -p ../files/put_200_5000.csv -R ../files/teste_50_50000.csv -S ../files/SpR.txt >> ../testes/BST_RANK.dat
+printf "$a - 50x100000  " >> ../testes/BST_RANK.dat
+./main -p ../files/put_200_5000.csv -R ../files/teste_50_100000.csv -S ../files/SpR.txt >> ../testes/BST_RANK.dat
+cd ..
+
+cd testes
+printf "$a - 50x15000  " > AVL_RANK.dat
+cd ../AVL_Shopping
+./main -p ../files/put_200_5000.csv -R ../files/teste_50_15000.csv -S ../files/SpR.txt >> ../testes/AVL_RANK.dat
+printf "$a - 50x25000  " >> ../testes/AVL_RANK.dat
+./main -p ../files/put_200_5000.csv -R ../files/teste_50_25000.csv -S ../files/SpR.txt >> ../testes/AVL_RANK.dat
+printf "$a - 50x50000  " >> ../testes/AVL_RANK.dat
+./main -p ../files/put_200_5000.csv -R ../files/teste_50_50000.csv -S ../files/SpR.txt >> ../testes/AVL_RANK.dat
+printf "$a - 50x100000  " >> ../testes/AVL_RANK.dat
+./main -p ../files/put_200_5000.csv -R ../files/teste_50_100000.csv -S ../files/SpR.txt >> ../testes/AVL_RANK.dat
+cd ..
+
+cd testes
+printf "$a - 50x15000  " > SPLAY_RANK.dat
+cd ../SPLAY_Shopping
+./main -p ../files/put_200_5000.csv -R ../files/teste_50_15000.csv -S ../files/SpR.txt >> ../testes/SPLAY_RANK.dat
+printf "$a - 50x25000  " >> ../testes/SPLAY_RANK.dat
+./main -p ../files/put_200_5000.csv -R ../files/teste_50_25000.csv -S ../files/SpR.txt >> ../testes/SPLAY_RANK.dat
+printf "$a - 50x50000  " >> ../testes/SPLAY_RANK.dat
+./main -p ../files/put_200_5000.csv -R ../files/teste_50_50000.csv -S ../files/SpR.txt >> ../testes/SPLAY_RANK.dat
+printf "$a - 50x100000  " >> ../testes/SPLAY_RANK.dat
+./main -p ../files/put_200_5000.csv -R ../files/teste_50_100000.csv -S ../files/SpR.txt >> ../testes/SPLAY_RANK.dat
+cd ..
+
+#*******************************************************************
+#DELETE
+cd testes
+printf "$a - 50x15000  " > BST_DELETE.dat
+cd ../BST_Shopping
+./main -p ../files/put_200_5000.csv -d ../files/teste_50_15000.csv -S ../files/Spd.txt >> ../testes/BST_DELETE.dat
+printf "$a - 50x25000  " >> ../testes/BST_DELETE.dat
+./main -p ../files/put_200_5000.csv -d ../files/teste_50_25000.csv -S ../files/Spd.txt >> ../testes/BST_DELETE.dat
+printf "$a - 50x50000  " >> ../testes/BST_DELETE.dat
+./main -p ../files/put_200_5000.csv -d ../files/teste_50_50000.csv -S ../files/Spd.txt >> ../testes/BST_DELETE.dat
+printf "$a - 50x100000  " >> ../testes/BST_DELETE.dat
+./main -p ../files/put_200_5000.csv -d ../files/teste_50_100000.csv -S ../files/Spd.txt >> ../testes/BST_DELETE.dat
+cd ..
+
+cd testes
+printf "$a - 50x15000  " > AVL_DELETE.dat
+cd ../AVL_Shopping
+./main -p ../files/put_200_5000.csv -d ../files/teste_50_15000.csv -S ../files/Spd.txt >> ../testes/AVL_DELETE.dat
+printf "$a - 50x25000  " >> ../testes/AVL_DELETE.dat
+./main -p ../files/put_200_5000.csv -d ../files/teste_50_25000.csv -S ../files/Spd.txt >> ../testes/AVL_DELETE.dat
+printf "$a - 50x50000  " >> ../testes/AVL_DELETE.dat
+./main -p ../files/put_200_5000.csv -d ../files/teste_50_50000.csv -S ../files/Spd.txt >> ../testes/AVL_DELETE.dat
+printf "$a - 50x100000  " >> ../testes/AVL_DELETE.dat
+./main -p ../files/put_200_5000.csv -d ../files/teste_50_100000.csv -S ../files/Spd.txt >> ../testes/AVL_DELETE.dat
+cd ..
+
+cd testes
+printf "$a - 50x15000  " > SPLAY_DELETE.dat
+cd ../SPLAY_Shopping
+./main -p ../files/put_200_5000.csv -d ../files/teste_50_15000.csv -S ../files/Spd.txt >> ../testes/SPLAY_DELETE.dat
+printf "$a - 50x25000  " >> ../testes/SPLAY_DELETE.dat
+./main -p ../files/put_200_5000.csv -d ../files/teste_50_25000.csv -S ../files/Spd.txt >> ../testes/SPLAY_DELETE.dat
+printf "$a - 50x50000  " >> ../testes/SPLAY_DELETE.dat
+./main -p ../files/put_200_5000.csv -d ../files/teste_50_50000.csv -S ../files/Spd.txt >> ../testes/SPLAY_DELETE.dat
+printf "$a - 50x100000  " >> ../testes/SPLAY_DELETE.dat
+./main -p ../files/put_200_5000.csv -d ../files/teste_50_100000.csv -S ../files/Spd.txt >> ../testes/SPLAY_DELETE.dat
+cd ..
+
+#*******************************************************************
+#FLOOR
+cd testes
+printf "$a - 50x15000  " > BST_FLOOR.dat
+cd ../BST_Shopping
+./main -p ../files/put_200_5000.csv -F ../files/teste_50_15000.csv -S ../files/SpF.txt >> ../testes/BST_FLOOR.dat
+printf "$a - 50x25000  " >> ../testes/BST_FLOOR.dat
+./main -p ../files/put_200_5000.csv -F ../files/teste_50_25000.csv -S ../files/SpF.txt >> ../testes/BST_FLOOR.dat
+printf "$a - 50x50000  " >> ../testes/BST_FLOOR.dat
+./main -p ../files/put_200_5000.csv -F ../files/teste_50_50000.csv -S ../files/SpF.txt >> ../testes/BST_FLOOR.dat
+printf "$a - 50x100000  " >> ../testes/BST_FLOOR.dat
+./main -p ../files/put_200_5000.csv -F ../files/teste_50_100000.csv -S ../files/SpF.txt >> ../testes/BST_FLOOR.dat
+cd ..
+
+cd testes
+printf "$a - 50x15000  " > AVL_FLOOR.dat
+cd ../AVL_Shopping
+./main -p ../files/put_200_5000.csv -F ../files/teste_50_15000.csv -S ../files/SpF.txt >> ../testes/AVL_FLOOR.dat
+printf "$a - 50x25000  " >> ../testes/AVL_FLOOR.dat
+./main -p ../files/put_200_5000.csv -F ../files/teste_50_25000.csv -S ../files/SpF.txt >> ../testes/AVL_FLOOR.dat
+printf "$a - 50x50000  " >> ../testes/AVL_FLOOR.dat
+./main -p ../files/put_200_5000.csv -F ../files/teste_50_50000.csv -S ../files/SpF.txt >> ../testes/AVL_FLOOR.dat
+printf "$a - 50x100000  " >> ../testes/AVL_FLOOR.dat
+./main -p ../files/put_200_5000.csv -F ../files/teste_50_100000.csv -S ../files/SpF.txt >> ../testes/AVL_FLOOR.dat
+cd ..
+
+cd testes
+printf "$a - 50x15000  " > SPLAY_FLOOR.dat
+cd ../SPLAY_Shopping
+./main -p ../files/put_200_5000.csv -F ../files/teste_50_15000.csv -S ../files/SpF.txt >> ../testes/SPLAY_FLOOR.dat
+printf "$a - 50x25000  " >> ../testes/SPLAY_FLOOR.dat
+./main -p ../files/put_200_5000.csv -F ../files/teste_50_25000.csv -S ../files/SpF.txt >> ../testes/SPLAY_FLOOR.dat
+printf "$a - 50x50000  " >> ../testes/SPLAY_FLOOR.dat
+./main -p ../files/put_200_5000.csv -F ../files/teste_50_50000.csv -S ../files/SpF.txt >> ../testes/SPLAY_FLOOR.dat
+printf "$a - 50x100000 " >> ../testes/SPLAY_FLOOR.dat
+./main -p ../files/put_200_5000.csv -F ../files/teste_50_100000.csv -S ../files/SpF.txt >> ../testes/SPLAY_FLOOR.dat
+cd ..
+
+#*******************************************************************
+#CEIL
+
+cd testes
+printf "$a - 50x15000  " > BST_CEIL.dat
+cd ../BST_Shopping
+./main -p ../files/put_200_5000.csv -C ../files/teste_50_15000.csv -S ../files/SpCeil.txt >> ../testes/BST_CEIL.dat
+printf "$a - 50x25000  " >> ../testes/BST_CEIL.dat
+./main -p ../files/put_200_5000.csv -C ../files/teste_50_25000.csv -S ../files/SpCeil.txt >> ../testes/BST_CEIL.dat
+printf "$a - 50x50000  " >> ../testes/BST_CEIL.dat
+./main -p ../files/put_200_5000.csv -C ../files/teste_50_50000.csv -S ../files/SpCeil.txt >> ../testes/BST_CEIL.dat
+printf "$a - 50x100000  " >> ../testes/BST_CEIL.dat
+./main -p ../files/put_200_5000.csv -C ../files/teste_50_100000.csv -S ../files/SpCeil.txt >> ../testes/BST_CEIL.dat
+cd ..
+
+cd testes
+printf "$a - 50x15000  " > AVL_CEIL.dat
+cd ../AVL_Shopping
+./main -p ../files/put_200_5000.csv -C ../files/teste_50_15000.csv -S ../files/SpCeil.txt >> ../testes/AVL_CEIL.dat
+printf "$a - 50x25000  " >> ../testes/AVL_CEIL.dat
+./main -p ../files/put_200_5000.csv -C ../files/teste_50_25000.csv -S ../files/SpCeil.txt >> ../testes/AVL_CEIL.dat
+printf "$a - 50x50000  " >> ../testes/AVL_CEIL.dat
+./main -p ../files/put_200_5000.csv -C ../files/teste_50_50000.csv -S ../files/SpCeil.txt >> ../testes/AVL_CEIL.dat
+printf "$a - 50x100000  " >> ../testes/AVL_CEIL.dat
+./main -p ../files/put_200_5000.csv -C ../files/teste_50_100000.csv -S ../files/SpCeil.txt >> ../testes/AVL_CEIL.dat
+cd ..
+
+cd testes
+printf "$a - 50x15000  " > SPLAY_CEIL.dat
+cd ../SPLAY_Shopping
+./main -p ../files/put_200_5000.csv -C ../files/teste_50_15000.csv -S ../files/SpCeil.txt >> ../testes/SPLAY_CEIL.dat
+printf "$a - 50x25000  " >> ../testes/SPLAY_CEIL.dat
+./main -p ../files/put_200_5000.csv -C ../files/teste_50_25000.csv -S ../files/SpCeil.txt >> ../testes/SPLAY_CEIL.dat
+printf "$a - 50x50000  " >> ../testes/SPLAY_CEIL.dat
+./main -p ../files/put_200_5000.csv -C ../files/teste_50_50000.csv -S ../files/SpCeil.txt >> ../testes/SPLAY_CEIL.dat
+printf "$a - 50x100000 " >> ../testes/SPLAY_CEIL.dat
+./main -p ../files/put_200_5000.csv -C ../files/teste_50_100000.csv -S ../files/SpCeil.txt >> ../testes/SPLAY_CEIL.dat
+cd ..
+done
